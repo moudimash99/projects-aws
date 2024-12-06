@@ -21,3 +21,11 @@ The application employs **Sequelize** as an ORM to define and manage models in J
 ## Configuration Management
 
 Configuration is streamlined through a dedicated `config` folder containing a `config.json` file, which defines settings for different environments (development, testing, production). This approach maintains consistency and security by avoiding hard-coded configurations and allowing seamless transitions between environments. **Environment variables** are managed using a `.env` file, enhancing security by keeping sensitive information out of the codebase.
+
+
+## Testing
+Currently, the project includes basic integration tests that verify the functionality of key API. The existing unit tests are minimal and do not fully encompass the application's complexity.
+
+
+## Missing features
+To enhance the reliability and maintainability of the application, it is essential to implement more thorough unit and integration testing. Expanding the test suite will ensure that all components and edge cases are adequately covered, reducing the likelihood of unexpected issues. Additionally, establishing a CI/CD pipeline is a top priority, as it will automate the processes of testing, building, and deploying the application, thereby increasing development efficiency and ensuring consistent releases. Furthermore, standardizing the API response signatures across all internal APIs will promote uniformity, simplify client interactions, and improve overall maintainability. These improvements will collectively contribute to a more robust and scalable application.
