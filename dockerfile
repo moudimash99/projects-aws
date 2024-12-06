@@ -15,6 +15,6 @@ COPY . .
 
 
 EXPOSE 3000
+EXPOSE 5432
 
-
-CMD ["tail", "-f", "/dev/null"]
+CMD ["node", "app.js"]

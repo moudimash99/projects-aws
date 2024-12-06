@@ -9,7 +9,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'https://<API_GATEWAY_ENDPOINT>', 
+      url: 'http://localhost:3000/', 
       description: 'Production server',
     },
   ],
