@@ -1,28 +1,36 @@
-// routes/projects.js
+// routes/projectRoutes.js
 
 const express = require('express');
-const router = express.Router();
 const projectController = require('../controllers/projectController');
+const {
+  validateCreateProject,
+  validateRenameProject,
+  validateDeleteProject,
+  validateIntersectMergeProjects,
+  validateGetProject,
+} = require('../validators/projectValidator');
 
-// Create a Project
-router.post('/', projectController.createProject);
+const router = express.Router();
 
-// Delete a Project
-router.delete('/:id', projectController.deleteProject);
+// Get Project
+router.get('/',  projectController.listProjects);
 
-// Rename a Project
-router.put('/:id', projectController.renameProject);
+// Create Project
+router.post('/', validateCreateProject, projectController.createProject);
 
-// List All Projects
-router.get('/', projectController.listProjects);
+// Rename Project
+router.put('/rename/:id', validateRenameProject, projectController.renameProject);
 
-// Test for Project Intersection
-router.post('/intersect', projectController.testIntersection);
+// Delete Project
+router.delete('/:id', validateDeleteProject, projectController.deleteProject);
 
-// Merge Two Projects
-router.post('/merge', projectController.mergeProjects);
+// Intersect Projects
+router.get('/intersect', validateIntersectMergeProjects, projectController.intersectProjects);
 
-// Return Department Number for Project Center Point
-router.get('/:id/department', projectController.getDepartmentNumber);
+// Merge Projects
+router.put('/merge', validateIntersectMergeProjects, projectController.mergeProjects);
 
+// GET /projects/:id/department - get department for a project by id
+router.get('/department/:id', validateGetProject, projectController.getProjectDepartment);
+ 
 module.exports = router;

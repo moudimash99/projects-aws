@@ -1,13 +1,12 @@
-// models/project.js
+// models/department.js
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Project = sequelize.define('Project', {
-  id: {
+const Department = sequelize.define('Department', {
+  code: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
   },
   name: {
     type: DataTypes.STRING,
@@ -18,7 +17,7 @@ const Project = sequelize.define('Project', {
     allowNull: false,
   },
 }, {
-  tableName: 'Projects', // Specify table name if needed
+  tableName: 'Departments', // Specify table name if needed
   timestamps: true, // Disable createdAt and updatedAt fields
   toJSON: {
     transform: (doc, ret) => {
@@ -33,7 +32,7 @@ const Project = sequelize.define('Project', {
 });
 
 // Override the toJSON method to customize the JSON output
-Project.prototype.toJSON = function () {
+Department.prototype.toJSON = function () {
   const values = Object.assign({}, this.get());
 
   // Remove unwanted fields
@@ -48,4 +47,4 @@ Project.prototype.toJSON = function () {
   return values;
 };
 
-module.exports = Project;
+module.exports = Department;

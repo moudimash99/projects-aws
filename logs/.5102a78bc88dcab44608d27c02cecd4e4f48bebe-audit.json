@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\Theotime\\Documents\\praxis asssesment\\nodeassesm\\logs\\.5102a78bc88dcab44608d27c02cecd4e4f48bebe-audit.json",
+    "files": [
+        {
+            "date": 1733428948701,
+            "name": "C:\\Users\\Theotime\\Documents\\praxis asssesment\\nodeassesm\\logs\\error-2024-12-05.log",
+            "hash": "8177efbc882bb19ac5443e3ae63ed86c3f89f972b823a52fcad8cf3228278fb9"
+        },
+        {
+            "date": 1733477584339,
+            "name": "C:\\Users\\Theotime\\Documents\\praxis asssesment\\nodeassesm\\logs\\error-2024-12-06.log",
+            "hash": "ea6a31d591b8aa44d506ca1207e4c050d66aed02803f43c61d4b8ac5ed4a326c"
+        }
+    ],
+    "hashType": "sha256"
+}

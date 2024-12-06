@@ -1,12 +1,24 @@
 // controllers/projectController.js
-
+const { EmptyResultError } = require('sequelize');
 const projectService = require('../services/projectService');
+const { validationResult } = require('express-validator');
+
 
 exports.createProject = async (req, res, next) => {
   try {
-    const projectData = req.body;
-    const project = await projectService.createProject(projectData);
-    res.status(201).json({ message: 'Project created successfully', project });
+    // Validation
+    const { name, perimeter } = req.body;
+    const project =  await projectService.createProject(req.body);
+    res.status(201).json(project);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.listProjects = async (req, res, next) => {
+  try {
+    const projects = await projectService.listProjects();
+    res.status(200).json(projects);
   } catch (error) {
     next(error);
   }
@@ -33,19 +45,10 @@ exports.renameProject = async (req, res, next) => {
   }
 };
 
-exports.listProjects = async (req, res, next) => {
+exports.intersectProjects = async (req, res, next) => {
   try {
-    const projects = await projectService.listProjects();
-    res.json({ message: 'List of all projects', projects });
-  } catch (error) {
-    next(error);
-  }
-};
-
-exports.testIntersection = async (req, res, next) => {
-  try {
-    const { projectId1, projectId2 } = req.body;
-    const intersects = await projectService.testIntersection(projectId1, projectId2);
+    const { id1, id2 } = req.query;
+    const intersects = await projectService.testIntersection(id1, id2);
     res.json({ message: 'Intersection test completed', intersects });
   } catch (error) {
     next(error);
@@ -54,15 +57,15 @@ exports.testIntersection = async (req, res, next) => {
 
 exports.mergeProjects = async (req, res, next) => {
   try {
-    const { projectId1, projectId2 } = req.body;
-    const project = await projectService.mergeProjects(projectId1, projectId2);
+    const { id1, id2 } = req.query;
+    const project = await projectService.mergeProjects(id1, id2);
     res.status(201).json({ message: 'Projects merged successfully', project });
   } catch (error) {
     next(error);
   }
 };
 
-exports.getDepartmentNumber = async (req, res, next) => {
+exports.getProjectDepartment = async (req, res, next) => {
   try {
     const id = req.params.id;
     const departmentNumber = await projectService.getDepartmentNumber(id);
