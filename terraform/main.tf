@@ -231,44 +231,6 @@ resource "aws_instance" "app_instance" {
   }
 }
 
-#######################################
-# RDS Subnet Group
-#######################################
-resource "aws_db_subnet_group" "db_subnet_group" {
-  name        = "${var.project_name}-db-subnet-group"
-  description = "Subnet group for RDS"
-  subnet_ids  = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
-
-  tags = {
-    Name = "${var.project_name}-db-subnet-group"
-  }
-}
-
-#######################################
-# RDS Instance
-#######################################
-resource "aws_db_instance" "db_instance" {
-  allocated_storage    = 20
-  engine               = "postgres"
-  # PostGIS isn't enabled via engine param, you enable the extension inside DB once up.
-  # engine_version       = "14" 
-  instance_class       = "db.t4g.micro" # free-tier eligible 
-  db_name                 = "projectsdb"
-  username             = "postgres"
-  password             = var.db_password
-  skip_final_snapshot  = true
-  publicly_accessible  = false
-  multi_az             = false
-  db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
-  vpc_security_group_ids = [aws_security_group.rds_sg.id]
-
-  # Encryption at rest with AWS-managed key
-  storage_encrypted = true
-
-  tags = {
-    Name = "${var.project_name}-rds"
-  }
-}
 
 #######################################
 # API Gateway (HTTP API)
@@ -308,4 +270,44 @@ resource "aws_apigatewayv2_route" "projects_route" {
   api_id    = aws_apigatewayv2_api.http_api.id
   route_key = "ANY /projects"
   target    = "integrations/${aws_apigatewayv2_integration.http_integration.id}"
+}
+
+
+#######################################
+# RDS Subnet Group
+#######################################
+resource "aws_db_subnet_group" "db_subnet_group" {
+  name        = "${var.project_name}-db-subnet-group"
+  description = "Subnet group for RDS"
+  subnet_ids  = [aws_subnet.private_subnet_a.id, aws_subnet.private_subnet_b.id]
+
+  tags = {
+    Name = "${var.project_name}-db-subnet-group"
+  }
+}
+
+#######################################
+# RDS Instance
+#######################################
+resource "aws_db_instance" "db_instance" {
+  allocated_storage    = 20
+  engine               = "postgres"
+  # PostGIS isn't enabled via engine param, you enable the extension inside DB once up.
+  # engine_version       = "14" 
+  instance_class       = "db.t4g.micro" # free-tier eligible 
+  db_name                 = "projectsdb"
+  username             = "postgres"
+  password             = var.db_password
+  skip_final_snapshot  = true
+  publicly_accessible  = false
+  multi_az             = false
+  db_subnet_group_name = aws_db_subnet_group.db_subnet_group.name
+  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+
+  # Encryption at rest with AWS-managed key
+  storage_encrypted = true
+
+  tags = {
+    Name = "${var.project_name}-rds"
+  }
 }

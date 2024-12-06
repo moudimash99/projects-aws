@@ -1,5 +1,3 @@
-// models/index.js
-
 const sequelize = require('../config/database');
 const Project = require('./project');
 const Department = require('./department');
@@ -10,4 +8,3 @@ db.Project = Project;
 db.Department = Department;
 
 module.exports = db;
- 

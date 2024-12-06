@@ -1,52 +1,45 @@
-// utils/logger.js
-
 const { createLogger, format, transports } = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
 const path = require('path');
 
-// Define log directory
 const logDirectory = path.join(__dirname, '..', 'logs');
 
-// Create the Winston logger instance
 const logger = createLogger({
-  level: process.env.LOG_LEVEL || 'info', // Set log level from environment or default to 'info'
+  level: process.env.LOG_LEVEL || 'info', 
   format: format.combine(
-    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), // Add timestamp to logs
-    format.errors({ stack: true }), // Include stack trace for errors
-    format.splat(), // Enable string interpolation
-    format.json() // Log in JSON format for structured logging
+    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), 
+    format.errors({ stack: true }), 
+    format.splat(), 
+    format.json() 
   ),
   transports: [
-    // Console transport for development
+
     new transports.Console({
       format: format.combine(
-        format.colorize(), // Colorize output for better readability in console
-        format.simple() // Simple text format
+        format.colorize(), 
+        format.simple() 
       ),
-      silent: process.env.NODE_ENV === 'production', // Disable console logs in production
+      silent: process.env.NODE_ENV === 'production', 
     }),
 
-    // Daily rotate file transport for errors
     new DailyRotateFile({
       filename: path.join(logDirectory, 'error-%DATE%.log'),
       datePattern: 'YYYY-MM-DD',
-      level: 'error', // Log only error level messages
-      zippedArchive: true, // Compress archived log files
-      maxSize: '20m', // Maximum size of a log file before rotation
-      maxFiles: '14d', // Retain logs for 14 days
+      level: 'error', 
+      zippedArchive: true, 
+      maxSize: '20m', 
+      maxFiles: '14d', 
     }),
 
-    // Daily rotate file transport for all logs
     new DailyRotateFile({
       filename: path.join(logDirectory, 'combined-%DATE%.log'),
       datePattern: 'YYYY-MM-DD',
       zippedArchive: true,
       maxSize: '20m',
-      maxFiles: '30d', // Retain combined logs for 30 days
+      maxFiles: '30d', 
     }),
   ],
-  exitOnError: false, // Do not exit on handled exceptions
+  exitOnError: false, 
 });
 
-// Export the logger instance
 module.exports = logger;

@@ -5,9 +5,9 @@ const logger = require('../utils/logger');
 const requestLogger = (req, res, next) => {
   const startHrTime = process.hrtime(); // Start timer
 
-  // Listen for the finish event on the response to log after response is sent
+  
   res.on('finish', () => {
-    const elapsedHrTime = process.hrtime(startHrTime); // Calculate elapsed time
+    const elapsedHrTime = process.hrtime(startHrTime); 
     const elapsedTimeInMs = elapsedHrTime[0] * 1000 + elapsedHrTime[1] / 1e6;
 
     logger.info(`${req.method} ${req.originalUrl} ${res.statusCode} ${elapsedTimeInMs.toFixed(3)}ms`, {
@@ -20,7 +20,7 @@ const requestLogger = (req, res, next) => {
     });
   });
 
-  next(); // Proceed to the next middleware or route handler
+  next(); 
 };
 
 module.exports = requestLogger;

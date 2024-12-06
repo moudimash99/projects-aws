@@ -1,5 +1,3 @@
-// tests/projects.test.js
-
 const request = require('supertest');
 const app = require('../app');
 
@@ -19,5 +17,4 @@ describe('Projects API', () => {
     expect(res.body.project).toHaveProperty('name', 'Test Project');
   });
 
-  // Add more tests for other endpoints
 });

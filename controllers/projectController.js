@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator');
 
 exports.createProject = async (req, res, next) => {
   try {
-    // Validation
+    
     const { name, perimeter } = req.body;
     const project =  await projectService.createProject(req.body);
     res.status(201).json(project);

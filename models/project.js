@@ -1,5 +1,3 @@
-// models/project.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -14,12 +12,12 @@ const Project = sequelize.define('Project', {
     allowNull: false,
   },
   perimeter: {
-    type: DataTypes.GEOMETRY('POLYGON'), // Using PostGIS geometry type
+    type: DataTypes.GEOMETRY('POLYGON'), 
     allowNull: false,
   },
 }, {
-  tableName: 'Projects', // Specify table name if needed
-  timestamps: true, // Disable createdAt and updatedAt fields
+  tableName: 'Projects', 
+  timestamps: true, 
   toJSON: {
     transform: (doc, ret) => {
       delete ret.createdAt;
@@ -32,15 +30,12 @@ const Project = sequelize.define('Project', {
   }
 });
 
-// Override the toJSON method to customize the JSON output
 Project.prototype.toJSON = function () {
   const values = Object.assign({}, this.get());
 
-  // Remove unwanted fields
   delete values.createdAt;
   delete values.updatedAt;
 
-  // Remove 'crs' from 'perimeter' if it exists
   if (values.perimeter && values.perimeter.crs) {
     delete values.perimeter.crs;
   }
