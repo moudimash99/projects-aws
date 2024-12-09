@@ -3,7 +3,7 @@ const sequelize = require('../config/database');
 
 const Department = sequelize.define('Department', {
   code: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     primaryKey: true,
   },
   name: {
