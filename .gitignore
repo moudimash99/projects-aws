@@ -1,9 +1,9 @@
 # .gitignore
 node_modules
 .env
-config/config.js
 terraform/variables.tf
 .terraform/
 terraform.tfstate
 terraform.tfstate.backup
 *.tfvars
+config/config.json

@@ -11,7 +11,7 @@ const Department = sequelize.define('Department', {
     allowNull: false,
   },
   perimeter: {
-    type: DataTypes.GEOMETRY('POLYGON'), 
+    type: DataTypes.GEOMETRY('MULTIPOLYGON'), 
     allowNull: false,
   },
 }, {

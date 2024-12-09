@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator');
 
 exports.createDepartment = async (req, res, next) => {
   try {
-    const { name, perimeter } = req.body;
+    const { name, code, perimeter } = req.body;
     const project =  await departmentService.createDepartment(req.body);
     res.status(201).json(project);
   } catch (error) {

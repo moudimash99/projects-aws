@@ -4,10 +4,11 @@ const { EmptyResultError } = require('sequelize');
 class DepartmentService {
   async createDepartment(departmentData) {
 
-      const { name, perimeter } = departmentData;
+      const { name, code, perimeter } = departmentData;
 
       const newDepartment = await db.Department.create({
         name,
+        code,
         perimeter,
       });
 

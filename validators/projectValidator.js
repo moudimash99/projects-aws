@@ -34,8 +34,8 @@ module.exports = {
       .exists().withMessage('Perimeter is required.')
       .bail()
       .custom((value) => {
-        if (!geojsonValidation.isPolygon(value)) {
-          throw new Error('Perimeter must be a valid GeoJSON Polygon.');
+        if (!geojsonValidation.isMultiPolygon(value) && !geojsonValidation.isPolygon(value)) {
+          throw new Error('Perimeter must be a valid GeoJSON MultiPolygon or Polygon.');
         }
         return true;
       }),

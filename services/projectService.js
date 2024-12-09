@@ -170,14 +170,14 @@ class ProjectService {
           FROM "Projects"
           WHERE id = :id
         )
-        SELECT d.id, d.name
+        SELECT d.code, d.name
         FROM "Departments" d, proj_center c
         WHERE ST_Contains(d.perimeter, c.center);`;
 
         const replacements = {
             id: projectId
         };
-        const [result] = await db.sequelize.query(query, {
+        const [result] = await db.Sequelize.query(query, {
             replacements
         });
 
